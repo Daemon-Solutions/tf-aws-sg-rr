@@ -15,7 +15,7 @@ resource "aws_security_group_rule" "cidr_rules" {
   from_port         = "${element(var.cidr_rules[element(keys(var.cidr_rules), count.index)], 0)}"
   to_port           = "${element(var.cidr_rules[element(keys(var.cidr_rules), count.index)], 1)}"
   protocol          = "${element(var.cidr_rules[element(keys(var.cidr_rules), count.index)], 2)}"
-  cidr_blocks       = "${split(",", element(var.cidr_rules[element(keys(var.cidr_rules), count.index)], 3))}"
+  cidr_blocks       = "${compact(split(",", element(var.cidr_rules[element(keys(var.cidr_rules), count.index)], 3)))}"
   security_group_id = "${aws_security_group.sg.id}"
 }
 
